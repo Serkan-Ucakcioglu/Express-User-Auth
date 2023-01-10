@@ -7,8 +7,9 @@ const userRoute = require("./router/UserRoute");
 
 dotenv.config();
 connectDb();
+app.use(express.json());
 app.use(cookieParser());
-app.use("/", userRoute);
+app.use("/register", userRoute);
 
 const port = process.env.PORT || 3001;
 

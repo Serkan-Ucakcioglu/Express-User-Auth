@@ -5,7 +5,7 @@ const validateEmail = function (email) {
   return regex.test(email);
 };
 
-const userSchame = mongoose.Schema({
+const userSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -20,4 +20,4 @@ const userSchame = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("User", userSchame);
+module.exports = mongoose.model("User", userSchema);
