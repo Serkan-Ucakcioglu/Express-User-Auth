@@ -7,6 +7,7 @@ const userRoute = require("./router/UserRoute");
 
 dotenv.config();
 connectDb();
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/", userRoute);
