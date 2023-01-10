@@ -9,7 +9,7 @@ dotenv.config();
 connectDb();
 app.use(express.json());
 app.use(cookieParser());
-app.use("/register", userRoute);
+app.use("/", userRoute);
 
 const port = process.env.PORT || 3001;
 

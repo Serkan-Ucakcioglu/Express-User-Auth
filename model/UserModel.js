@@ -5,19 +5,22 @@ const validateEmail = function (email) {
   return regex.test(email);
 };
 
-const userSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-    unique: true,
-    validate: [validateEmail, "Please enter a valid email"],
+const userSchema = mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      unique: true,
+      validate: [validateEmail, "Please enter a valid email"],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  { timeStamps: true }
+);
 
 module.exports = mongoose.model("User", userSchema);
