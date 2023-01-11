@@ -40,10 +40,12 @@ const loginUser = async (req, res) => {
       const refreshToken = jwt.sign(option, process.env.REFRESH_TOKEN, {
         expiresIn: "1d",
       });
+      console.log(refreshToken);
+
       res.cookie("jwt", refreshToken, {
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
         sameSite: "None",
+        secure: false,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
       res.status(200).json({ accessToken });
@@ -56,8 +58,9 @@ const loginUser = async (req, res) => {
 };
 
 const refresh = async (req, res) => {
-  const cookie = req.cookies;
-  if (!cookie.jwt) return res.status(401).json("unauth");
+  const cookie = await req.cookies;
+
+  if (!cookie) return res.status(401).json("unauth");
 
   const refresh = cookie.jwt;
 
@@ -66,8 +69,7 @@ const refresh = async (req, res) => {
       return res.status(403).json({ message: "forbidden " });
     }
 
-    const user = await User.findOne({ email: decoded.email });
-    console.log(decoded.user.email);
+    const user = await User.findOne({ email: decoded.user.email });
 
     if (!user) return res.status(401).json("unauth");
 
@@ -78,7 +80,7 @@ const refresh = async (req, res) => {
       },
     };
 
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN, {
+    const accessToken = jwt.sign(option, process.env.ACCESS_TOKEN, {
       expiresIn: "15m",
     });
 
