@@ -66,7 +66,7 @@ const refresh = async (req, res) => {
 
   jwt.verify(refresh, process.env.REFRESH_TOKEN, async (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: "forbidden " });
+      res.status(403).json({ message: "forbidden " });
     }
 
     const user = await User.findOne({ email: decoded.user.email });
