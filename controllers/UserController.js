@@ -79,7 +79,7 @@ const refresh = async (req, res) => {
     };
 
     const accessToken = jwt.sign(option, process.env.ACCESS_TOKEN, {
-      expiresIn: "15m",
+      expiresIn: "15h",
     });
 
     res.json({ accessToken });
